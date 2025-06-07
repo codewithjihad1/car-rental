@@ -26,7 +26,7 @@ const Navbar = () => {
     const guestNavItems = [
         { name: 'Home', path: '/' },
         { name: 'Available Cars', path: '/available-cars' },
-        { name: 'Login', path: '/login' }
+        { name: 'Login', path: '/auth/login' }
     ]
 
     // Navigation items for logged-in users
