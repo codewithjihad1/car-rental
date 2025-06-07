@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router'
+import { Link, NavLink } from 'react-router'
 import { AuthContext } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
 import { FaCar, FaSun, FaMoon, FaBars, FaTimes, FaUser } from 'react-icons/fa'
@@ -35,14 +35,15 @@ const Navbar = () => {
         { name: 'Available Cars', path: '/available-cars' },
         { name: 'Add Car', path: '/add-car' },
         { name: 'My Cars', path: '/my-cars' },
-        { name: 'My Bookings', path: '/my-bookings' }
+        { name: 'My Bookings', path: '/my-bookings' },
+        { name: 'Logout', path: '#', onClick: handleLogout }
     ]
 
     const navItems = user ? userNavItems : guestNavItems
 
     return (
         <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo and Brand */}
                     <div className="flex items-center space-x-2">
@@ -60,14 +61,14 @@ const Navbar = () => {
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
                         {navItems.map((item) => (
-                            <Link
+                            <NavLink
                                 key={item.name}
                                 to={item.path}
                                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md font-medium transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
                                 onClick={closeMobileMenu}
                             >
                                 {item.name}
-                            </Link>
+                            </NavLink>
                         ))}
 
                         {/* User Profile and Logout for logged-in users */}
