@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router'
 import { AuthContext } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
 import { FaCar, FaSun, FaMoon, FaBars, FaTimes, FaUser } from 'react-icons/fa'
+import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext)
@@ -35,8 +36,7 @@ const Navbar = () => {
         { name: 'Available Cars', path: '/available-cars' },
         { name: 'Add Car', path: '/add-car' },
         { name: 'My Cars', path: '/my-cars' },
-        { name: 'My Bookings', path: '/my-bookings' },
-        { name: 'Logout', path: '#', onClick: handleLogout }
+        { name: 'My Bookings', path: '/my-bookings' }
     ]
 
     const navItems = user ? userNavItems : guestNavItems
@@ -59,12 +59,12 @@ const Navbar = () => {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-8">
+                    <div className="hidden md:flex items-center gap-2.5">
                         {navItems.map((item) => (
                             <NavLink
                                 key={item.name}
                                 to={item.path}
-                                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md font-medium transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                                className="text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md font-medium transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
                                 onClick={closeMobileMenu}
                             >
                                 {item.name}
@@ -76,23 +76,29 @@ const Navbar = () => {
                             <div className="flex items-center space-x-4">
                                 <div className="flex items-center space-x-2">
                                     {user.photoURL ? (
-                                        <img
-                                            src={user.photoURL}
-                                            alt="Profile"
-                                            className="w-8 h-8 rounded-full border-2 border-blue-500"
-                                        />
+                                        <>
+                                            <img
+                                                src={user.photoURL}
+                                                alt="Profile"
+                                                className="w-8 h-8 rounded-full border-2 border-blue-500"
+                                                data-tooltip-id="my-tooltip"
+                                                data-tooltip-content={user.displayName || 'User'}
+                                            />
+                                            <Tooltip id="my-tooltip" />
+                                        </>
                                     ) : (
                                         <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                            <FaUser className="text-white text-sm" />
+                                            <FaUser className="text-white text-sm"
+                                                data-tooltip-id="my-tooltip"
+                                                data-tooltip-content={user.displayName || 'User'}
+                                            />
+                                            <Tooltip id="my-tooltip" />
                                         </div>
                                     )}
-                                    <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
-                                        {user.displayName || 'User'}
-                                    </span>
                                 </div>
                                 <button
                                     onClick={handleLogout}
-                                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200"
+                                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200 cursor-pointer"
                                 >
                                     Logout
                                 </button>
