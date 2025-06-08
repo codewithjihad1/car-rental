@@ -4,21 +4,20 @@ import AuthLayout from "../layouts/AuthLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
+import ErrorNotFoundPage from "../pages/ErrorNotFoundPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         Component: RootLayout,
-        errorElement: <div>Error loading page</div>,
         children: [
             {
                 index: true,
                 element: <Home />,
-            },
-            {
+            }, {
                 path: "available-cars",
                 element: <div>Available Cars Page</div>,
-            },
+            }
 
         ],
 
@@ -35,6 +34,10 @@ const router = createBrowserRouter([
                 element: <Signup />,
             },
         ],
+    },
+    {
+        path: "*",
+        element: <ErrorNotFoundPage />,
     }
 ]);
 

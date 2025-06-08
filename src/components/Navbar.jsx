@@ -76,7 +76,7 @@ const Navbar = () => {
                             <div className="flex items-center space-x-4">
                                 <div className="flex items-center space-x-2">
                                     {user.photoURL ? (
-                                        <>
+                                        <div>
                                             <img
                                                 src={user.photoURL}
                                                 alt="Profile"
@@ -85,7 +85,7 @@ const Navbar = () => {
                                                 data-tooltip-content={user.displayName || 'User'}
                                             />
                                             <Tooltip id="my-tooltip" />
-                                        </>
+                                        </div>
                                     ) : (
                                         <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                                             <FaUser className="text-white text-sm"
