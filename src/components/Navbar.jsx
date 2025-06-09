@@ -6,7 +6,8 @@ import { FaCar, FaSun, FaMoon, FaBars, FaTimes, FaUser } from 'react-icons/fa'
 import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
-    const { user, logout } = useContext(AuthContext)
+    const { user, logout, loading } = useContext(AuthContext)
+    console.log("🚀 ~ Navbar ~ user:", user)
     const { theme, toggleTheme } = useTheme()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -72,7 +73,7 @@ const Navbar = () => {
                         ))}
 
                         {/* User Profile and Logout for logged-in users */}
-                        {user && (
+                        {user && !loading && (
                             <div className="flex items-center space-x-4">
                                 <div className="flex items-center space-x-2">
                                     {user.photoURL ? (
