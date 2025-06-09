@@ -153,7 +153,7 @@ const AddCar = () => {
                         Add New Car
                     </h1>
                     <p className="text-gray-600 dark:text-gray-400">
-                        Fill in the details below to add your car to the rental fleet
+                        Fill in the details below to add your car for rental
                     </p>
                 </div>
 
@@ -368,7 +368,7 @@ const AddCar = () => {
                                     <span className="text-gray-500 dark:text-gray-400">Email:</span>
                                     <span className="ml-2 text-gray-900 dark:text-white">{user?.email}</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 

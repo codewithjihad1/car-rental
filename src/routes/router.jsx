@@ -7,47 +7,44 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import AddCar from "../pages/AddCar";
 import ErrorNotFoundPage from "../pages/ErrorNotFoundPage";
+import MyCars from "../pages/myCars/MyCars";
 
 const router = createBrowserRouter([
     {
         path: "/",
         Component: RootLayout,
-        children: [{
-            index: true,
-            element: <Home />,
-        },
-        {
-            path: "available-cars",
-            element: <div>Available Cars Page</div>,
-        }, {
-            path: "add-car",
-            element: (
-                <PrivateRoute>
-                    <AddCar />
-                </PrivateRoute>
-            ),
-        },
-        {
-            path: "my-cars",
-            element: (
-                <PrivateRoute>
-                    <div>My Cars Page</div>
-                </PrivateRoute>
-            ),
-        },
-        {
-            path: "my-bookings",
-            element: (
-                <PrivateRoute>
-                    <div>My Bookings Page</div>
-                </PrivateRoute>
-            ),
-        },
-        {
-            path: "*",
-            element: <ErrorNotFoundPage />,
-        },
-
+        children: [
+            {
+                index: true,
+                element: <Home />,
+            },
+            {
+                path: "available-cars",
+                element: <div>Available Cars Page</div>,
+            }, {
+                path: "add-car",
+                element: (
+                    <PrivateRoute>
+                        <AddCar />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "my-cars",
+                element: (
+                    <PrivateRoute>
+                        <MyCars />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "my-bookings",
+                element: (
+                    <PrivateRoute>
+                        <div>My Bookings Page</div>
+                    </PrivateRoute>
+                ),
+            },
         ],
 
     },
