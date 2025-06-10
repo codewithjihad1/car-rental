@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import Loading from '../../components/Loading'
 import axiosInstance from '../../api/axios'
 import CarDetailRow from './shared/CarDetailRow'
+import UpdateCarModal from './shared/UpdateCarModal'
 import Swal from 'sweetalert2'
 
 const MyCars = () => {
@@ -13,8 +14,10 @@ const MyCars = () => {
     const [cars, setCars] = useState([])
     const [loading, setLoading] = useState(false)
     const [isDeleting, setIsDeleting] = useState(false)
-
-
+    const [showUpdateModal, setShowUpdateModal] = useState(false)
+    const [selectedCar, setSelectedCar] = useState(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    
     // Load cars on component mount
     useEffect(() => {
         const loadCars = async () => {
@@ -36,6 +39,42 @@ const MyCars = () => {
             loadCars()
         }
     }, [user])
+
+    // Handle update modal
+    const handleUpdateClick = (car) => {
+        setSelectedCar(car)
+        setShowUpdateModal(true)
+    }
+
+    // Handle update car
+    const handleUpdateCar = async (carId, updatedData) => {
+        setIsSubmitting(true)
+        try {
+            const response = await axiosInstance.put(`/cars/${carId}`, updatedData)
+
+            // Update cars state
+            setCars(prevCars =>
+                prevCars.map(car =>
+                    car._id === carId || car.id === carId
+                        ? { ...car, ...updatedData }
+                        : car
+                )
+            )
+
+            return response.data
+        } catch (error) {
+            console.error('Error updating car:', error)
+            throw error
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
+
+    // Close update modal
+    const closeUpdateModal = () => {
+        setShowUpdateModal(false)
+        setSelectedCar(null)
+    }
 
     // Handle delete modal
     const handleDeleteClick = async (car) => {
@@ -128,96 +167,63 @@ const MyCars = () => {
                         {/* Desktop Table */}
                         <div className="hidden lg:block overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                <thead className="bg-gray-50 dark:bg-gray-700">
-                                    <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                            Car Details
-                                        </th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                            Price
-                                        </th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                            Bookings
-                                        </th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                            Status
-                                        </th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                            Date Added
-                                        </th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                            Actions
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead className="bg-gray-50 dark:bg-gray-700">                                    <tr>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Car Details
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Location
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Price
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Bookings
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Status
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Date Added
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Actions
+                                    </th>
+                                </tr>
+                                </thead>                                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                                     {cars.map((car) => (
-                                        <CarDetailRow key={car.id} car={car} handleDeleteClick={handleDeleteClick} />
+                                        <CarDetailRow
+                                            key={car._id || car.id}
+                                            car={car}
+                                            onEdit={handleUpdateClick}
+                                            onDelete={handleDeleteClick}
+                                        />
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
-
-                        {/* Mobile Cards */}
+                        </div>                        {/* Mobile Cards */}
                         <div className="lg:hidden">
                             {cars.map((car) => (
-                                <div key={car.id} className="p-6 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
-                                    <div className="flex items-start space-x-4">
-                                        <img
-                                            className="h-20 w-28 rounded-lg object-cover flex-shrink-0"
-                                            src={car.imageUrl}
-                                            alt={car.carModel}
-                                            onError={(e) => {
-                                                e.target.src = '/car.png'
-                                            }}
-                                        />
-                                        <div className="flex-1 min-w-0">
-                                            <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
-                                                {car.carModel}
-                                            </h3>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                                                {car.location}
-                                            </p>
-                                            <div className="flex items-center justify-between mb-3">
-                                                <span className="text-lg font-bold text-gray-900 dark:text-white">
-                                                    ${car.dailyRentalPrice}/day
-                                                </span>
-                                                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${car.availability === 'Available'
-                                                    ? 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
-                                                    : 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100'
-                                                    }`}>
-                                                    {car.availability}
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center justify-between">
-                                                <div className="text-sm text-gray-500 dark:text-gray-400">
-                                                    <span>Bookings: {car.bookingCount}</span>
-                                                    <span className="mx-2">•</span>
-                                                    <span>{new Date(car.dateAdded).toLocaleDateString()}</span>
-                                                </div>
-                                                <div className="flex space-x-2">
-                                                    <button
-                                                        onClick={() => handleUpdateClick(car)}
-                                                        className="bg-blue-100 hover:bg-blue-200 dark:bg-blue-800 dark:hover:bg-blue-700 text-blue-600 dark:text-blue-300 p-2 rounded-lg transition-colors duration-200"
-                                                    >
-                                                        <FaEdit />
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDeleteClick(car)}
-                                                        className="bg-red-100 hover:bg-red-200 dark:bg-red-800 dark:hover:bg-red-700 text-red-600 dark:text-red-300 p-2 rounded-lg transition-colors duration-200"
-                                                    >
-                                                        <FaTrash />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <CarDetailRow
+                                    key={car._id || car.id}
+                                    car={car}
+                                    onEdit={handleUpdateClick}
+                                    onDelete={handleDeleteClick}
+                                    isMobile={true}
+                                />
                             ))}
                         </div>
-                    </div>
-                )}
+                    </div>)}
             </div>
+
+            {/* Update Car Modal */}
+            <UpdateCarModal
+                isOpen={showUpdateModal}
+                onClose={closeUpdateModal}
+                car={selectedCar}
+                onUpdate={handleUpdateCar}
+                isSubmitting={isSubmitting}
+            />
         </div>
     )
 }
