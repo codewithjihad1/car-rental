@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyA3bSJ-_z-UM5TjuUXM2ZUYe4FKx8iw2r4",
-    authDomain: "car-rental-c9294.firebaseapp.com",
-    projectId: "car-rental-c9294",
-    storageBucket: "car-rental-c9294.firebasestorage.app",
-    messagingSenderId: "614949256971",
-    appId: "1:614949256971:web:7b991c19fa6c7d0eee6c0e",
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

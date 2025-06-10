@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import { AuthContext } from '../../context/AuthContext'
-import { FaCar, FaEdit, FaTrash, FaPlus } from 'react-icons/fa'
+import { FaCar, FaPlus } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Loading from '../../components/Loading'
 import axiosInstance from '../../api/axios'
@@ -17,7 +17,7 @@ const MyCars = () => {
     const [showUpdateModal, setShowUpdateModal] = useState(false)
     const [selectedCar, setSelectedCar] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    
+
     // Load cars on component mount
     useEffect(() => {
         const loadCars = async () => {
@@ -77,7 +77,7 @@ const MyCars = () => {
     }
 
     // Handle delete modal
-    const handleDeleteClick = async (car) => {
+    const handleDeleteClick = async (carId) => {
         Swal.fire({
             title: "Are you sure?",
             text: `You won't be able to delete ${car.carModel}!`,
@@ -99,10 +99,10 @@ const MyCars = () => {
 
         if (isDeleting) {
             try {
-                await axiosInstance.delete(`/cars/${car._id}`)
+                await axiosInstance.delete(`/cars/${carId}`)
 
                 // Remove car from state
-                const updatedCars = cars.filter(c => c._id !== car._id)
+                const updatedCars = cars.filter(c => c._id !== carId)
                 setCars(updatedCars)
 
                 toast.success('Car deleted successfully!')

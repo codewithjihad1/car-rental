@@ -63,7 +63,7 @@ const CarDetailRow = ({
                                     <FaEdit />
                                 </button>
                                 <button
-                                    onClick={() => onDelete(car)}
+                                    onClick={() => onDelete(car._id)}
                                     className="bg-red-100 hover:bg-red-200 dark:bg-red-800 dark:hover:bg-red-700 text-red-600 dark:text-red-300 p-2 rounded-lg transition-colors duration-200"
                                     title="Delete Car"
                                 >
