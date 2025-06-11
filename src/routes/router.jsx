@@ -6,6 +6,8 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import AddCar from "../pages/AddCar";
+import AvailableCars from "../pages/AvailableCars";
+import CarDetails from "../pages/CarDetails";
 import ErrorNotFoundPage from "../pages/ErrorNotFoundPage";
 import MyCars from "../pages/myCars/MyCars";
 
@@ -17,10 +19,12 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />,
-            },
-            {
+            }, {
                 path: "available-cars",
-                element: <div>Available Cars Page</div>,
+                element: <AvailableCars />,
+            }, {
+                path: "car-details/:id",
+                element: <CarDetails />,
             }, {
                 path: "add-car",
                 element: (
