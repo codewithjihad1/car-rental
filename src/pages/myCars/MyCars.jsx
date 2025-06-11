@@ -203,7 +203,8 @@ const MyCars = () => {
                                     ))}
                                 </tbody>
                             </table>
-                        </div>                        {/* Mobile Cards */}
+                        </div>
+                        {/* Mobile Cards */}
                         <div className="lg:hidden">
                             {cars.map((car) => (
                                 <CarDetailRow
