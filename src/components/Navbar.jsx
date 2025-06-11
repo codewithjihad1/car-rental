@@ -7,7 +7,6 @@ import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
     const { user, logout, loading } = useContext(AuthContext)
-    console.log("🚀 ~ Navbar ~ user:", user)
     const { theme, toggleTheme } = useTheme()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 

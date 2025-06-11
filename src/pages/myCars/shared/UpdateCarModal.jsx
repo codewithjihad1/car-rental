@@ -31,7 +31,7 @@ const UpdateCarModal = ({
                 dailyRentalPrice: car.dailyRentalPrice?.toString() || '',
                 availability: car.availability || 'Available',
                 vehicleRegistrationNumber: car.vehicleRegistrationNumber || '',
-                features: car.features || '',
+                features: car.features.join(', ') || '',
                 description: car.description || '',
                 imageUrl: car.imageUrl || '',
                 location: car.location || ''
@@ -84,7 +84,7 @@ const UpdateCarModal = ({
             newErrors.vehicleRegistrationNumber = 'Registration number must be at least 3 characters'
         }
 
-        // Features validation
+        // Features validation        
         if (!formData.features.trim()) {
             newErrors.features = 'Please list at least one feature'
         }

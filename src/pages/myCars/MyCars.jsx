@@ -50,7 +50,9 @@ const MyCars = () => {
     const handleUpdateCar = async (carId, updatedData) => {
         setIsSubmitting(true)
         try {
-            const response = await axiosInstance.put(`/cars/${carId}`, updatedData)
+            const response = await axiosInstance.put(`/cars/${carId}`, {
+                ...updatedData,
+            })
 
             // Update cars state
             setCars(prevCars =>
