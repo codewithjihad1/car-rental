@@ -50,9 +50,7 @@ const MyCars = () => {
     const handleUpdateCar = async (carId, updatedData) => {
         setIsSubmitting(true)
         try {
-            const response = await axiosInstance.put(`/cars/${carId}`, {
-                ...updatedData,
-            })
+            const response = await axiosInstance.put(`/cars/${carId}`, updatedData)
 
             // Update cars state
             setCars(prevCars =>
@@ -82,7 +80,7 @@ const MyCars = () => {
     const handleDeleteClick = async (carId) => {
         Swal.fire({
             title: "Are you sure?",
-            text: `You won't be able to delete ${car.carModel}!`,
+            text: `You won't be able to delete This Car!`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",

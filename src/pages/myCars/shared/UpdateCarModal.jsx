@@ -31,7 +31,7 @@ const UpdateCarModal = ({
                 dailyRentalPrice: car.dailyRentalPrice?.toString() || '',
                 availability: car.availability || 'Available',
                 vehicleRegistrationNumber: car.vehicleRegistrationNumber || '',
-                features: car.features.join(', ') || '',
+                features: car.features || '',
                 description: car.description || '',
                 imageUrl: car.imageUrl || '',
                 location: car.location || ''
@@ -131,7 +131,8 @@ const UpdateCarModal = ({
         try {
             const updatedData = {
                 ...formData,
-                dailyRentalPrice: parseFloat(formData.dailyRentalPrice)
+                dailyRentalPrice: parseFloat(formData.dailyRentalPrice),
+                features: formData.features.split(',').map(feature => feature.trim()),
             }
 
             await onUpdate(car._id, updatedData)

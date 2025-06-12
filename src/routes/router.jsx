@@ -10,6 +10,7 @@ import AvailableCars from "../pages/AvailableCars";
 import CarDetails from "../pages/CarDetails";
 import ErrorNotFoundPage from "../pages/ErrorNotFoundPage";
 import MyCars from "../pages/myCars/MyCars";
+import MyBookings from "../pages/MyBookings/MyBookings";
 
 const router = createBrowserRouter([
     {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
                 path: "my-bookings",
                 element: (
                     <PrivateRoute>
-                        <div>My Bookings Page</div>
+                        <MyBookings />
                     </PrivateRoute>
                 ),
             },

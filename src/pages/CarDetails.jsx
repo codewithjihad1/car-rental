@@ -128,12 +128,21 @@ const CarDetails = () => {
 
         setIsBooking(true)
         try {
-            await axiosInstance.post('/bookings', {
+            const bookingData = {
                 carId: car._id,
+                carModel: car.carModel,
+                carImage: car.imageUrl,
+                location: car.location,
                 startDate: selectedDates.startDate,
                 endDate: selectedDates.endDate,
-                totalPrice: totalPrice
-            })
+                bookingDate: new Date().toISOString(),
+                totalPrice: totalPrice,
+                dailyRate: car.dailyRentalPrice,
+                status: 'confirmed',
+                userEmail: user?.email,
+                userName: user?.displayName
+            }
+            await axiosInstance.post('/bookings', bookingData)
 
             toast.success('Car booked successfully!')
             setShowBookingModal(false)
@@ -379,7 +388,12 @@ const CarDetails = () => {
                                     Features & Amenities
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                    {car.features.split(',').map((feature, index) => (
+                                    {typeof (car.features) === 'string' ? car.features.split(',').map((feature, index) => (
+                                        <div key={index} className="flex items-center text-gray-600 dark:text-gray-400">
+                                            <FaCheckCircle className="text-green-500 mr-3 flex-shrink-0" />
+                                            <span>{feature.trim()}</span>
+                                        </div>
+                                    )) : car.features.map((feature, index) => (
                                         <div key={index} className="flex items-center text-gray-600 dark:text-gray-400">
                                             <FaCheckCircle className="text-green-500 mr-3 flex-shrink-0" />
                                             <span>{feature.trim()}</span>
