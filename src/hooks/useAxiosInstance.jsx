@@ -3,7 +3,9 @@ import axiosInstance from '../api/axios'
 import { AuthContext } from '../context/AuthContext';
 
 const useAxiosInstance = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
+
+    if (!user && loading) return null;
 
     axiosInstance.interceptors.request.use((config) => {
         config.headers.authorization = `Bearer ${user?.accessToken}`;

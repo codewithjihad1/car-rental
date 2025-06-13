@@ -14,7 +14,7 @@ import ModifyBookingModal from './shared/ModifyBookingModal'
 import CancelBookingModal from './shared/CancelBookingModal'
 import MobileCard from './shared/MobileCard'
 import DesktopLayoutCard from './shared/DesktopLayoutCard'
-import axiosInstance from '../../api/axios'
+import useAxiosInstance from '../../hooks/useAxiosInstance'
 
 const MyBookings = () => {
     const { user } = useContext(AuthContext)
@@ -28,6 +28,8 @@ const MyBookings = () => {
         startDate: '',
         endDate: ''
     })
+
+    const axiosInstance = useAxiosInstance()
 
     // Load bookings
     useEffect(() => {

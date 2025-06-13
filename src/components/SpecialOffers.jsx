@@ -1,32 +1,48 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router'
-import { InView } from "react-intersection-observer";
-import { FaPercent, FaCar, FaGift, FaArrowRight, FaClock } from 'react-icons/fa'
-import axios from 'axios';
-import Loading from './Loading';
+import { FaPercent, FaCar, FaGift, FaArrowRight, FaClock, FaCalendarAlt, FaCrown } from 'react-icons/fa'
+import OfferCard from './OfferCard';
+
+// offers data
+const offers = [
+    {
+        id: 1,
+        title: "Weekend Special",
+        subtitle: "Perfect for short getaways",
+        discount: "15% OFF",
+        description: "Get 15% off for weekend rentals! Book Friday to Sunday and save big.",
+        originalPrice: "$120",
+        discountedPrice: "$102",
+        validity: "Valid until Dec 31, 2025",
+        icon: FaCalendarAlt,
+        gradient: "from-blue-500 to-cyan-500",
+        bgImage: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=400&fit=crop",
+        features: ["Free GPS", "24/7 Support", "Free Cancellation"],
+        tag: "POPULAR",
+        animationDelay: "0ms"
+    },
+    {
+        id: 2,
+        title: "Luxury Holiday Deal",
+        subtitle: "Experience premium comfort",
+        discount: "30% OFF",
+        description: "Luxury cars at $99/day this holiday season! Drive in style and comfort.",
+        originalPrice: "$140",
+        discountedPrice: "$99",
+        validity: "Holiday Season Special",
+        icon: FaCrown,
+        gradient: "from-purple-500 to-pink-500",
+        bgImage: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=800&h=400&fit=crop",
+        features: ["Premium Insurance", "VIP Service", "Leather Interiors"],
+        tag: "LIMITED",
+        animationDelay: "150ms"
+    }
+];
+
+
+
+
 
 const SpecialOffers = () => {
-    const [offers, setOffers] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-
-    useEffect(() => {
-        const fetchOffers = async () => {
-            try {
-                const res = await axios.get("offers.json");
-                setOffers(res.data);
-            } catch (error) {
-                console.error("Error fetching offers:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchOffers();
-    }, []);
-
-
-    if (loading) return <Loading />;
 
     return (
         <section className="py-20 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
@@ -60,117 +76,7 @@ const SpecialOffers = () => {
 
                 {/* Offers Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                    {offers.map((offer, index) => {
-                        const IconComponent = offer.icon;
-
-                        return (
-                            <InView>
-                                {({ inView, ref }) => (
-                                    <div
-                                        key={offer.id}
-                                        ref={ref}
-                                        data-offer-id={offer.id}
-                                        className={`group relative bg-white dark:bg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transform transition-all duration-700 hover:scale-105 hover:-translate-y-2 ${inView
-                                            ? index % 2 === 0
-                                                ? 'translate-x-0 opacity-100'
-                                                : 'translate-x-0 opacity-100'
-                                            : index % 2 === 0
-                                                ? '-translate-x-full opacity-0'
-                                                : 'translate-x-full opacity-0'
-                                            }`}
-                                        style={{
-                                            transitionDelay: offer.animationDelay
-                                        }}
-                                    >
-                                        {/* Background Image */}
-                                        <div className="absolute inset-0">
-                                            <img
-                                                src={offer.bgImage}
-                                                alt={offer.title}
-                                                className="w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-300"
-                                            />
-                                            <div className={`absolute inset-0 bg-gradient-to-r ${offer.gradient} opacity-90`}></div>
-                                        </div>
-
-                                        {/* Content */}
-                                        <div className="relative p-8 text-white">
-                                            {/* Tag */}
-                                            <div className="absolute top-4 right-4">
-                                                <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium border border-white/30">
-                                                    {offer.tag}
-                                                </span>
-                                            </div>
-
-                                            {/* Icon and Discount */}
-                                            <div className="flex items-start justify-between mb-6">
-                                                <div className="flex items-center space-x-4">
-                                                    <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                                                        <IconComponent className="text-xl" />
-                                                    </div>
-                                                    <div>
-                                                        <h3 className="text-2xl font-bold">{offer.title}</h3>
-                                                        <p className="text-white/80">{offer.subtitle}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="text-right">
-                                                    <div className="text-3xl font-bold">{offer.discount}</div>
-                                                    <div className="text-sm text-white/80">Limited Time</div>
-                                                </div>
-                                            </div>
-
-                                            {/* Description */}
-                                            <p className="text-white/90 mb-6 leading-relaxed">
-                                                {offer.description}
-                                            </p>
-
-                                            {/* Pricing */}
-                                            <div className="flex items-center space-x-4 mb-6">
-                                                <div className="flex items-baseline space-x-2">
-                                                    <span className="text-sm text-white/60 line-through">{offer.originalPrice}</span>
-                                                    <span className="text-3xl font-bold">{offer.discountedPrice}</span>
-                                                    <span className="text-white/80">/day</span>
-                                                </div>
-                                                <div className="flex items-center text-sm text-white/70">
-                                                    <FaClock className="mr-1" />
-                                                    {offer.validity}
-                                                </div>
-                                            </div>
-
-                                            {/* Features */}
-                                            <div className="mb-8">
-                                                <h4 className="font-semibold mb-3">What's Included:</h4>
-                                                <div className="grid grid-cols-1 gap-2">
-                                                    {offer.features.map((feature, idx) => (
-                                                        <div key={idx} className="flex items-center text-sm text-white/90">
-                                                            <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
-                                                            {feature}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            {/* Action Buttons */}
-                                            <div className="flex flex-col sm:flex-row gap-3">
-                                                <Link
-                                                    to="/available-cars"
-                                                    className="flex-1 bg-white text-gray-900 py-3 px-6 rounded-xl font-semibold text-center hover:bg-gray-100 transition-all duration-200 transform hover:scale-105 flex items-center justify-center group/btn"
-                                                >
-                                                    <span>Book Now</span>
-                                                    <FaArrowRight className="ml-2 transform group-hover/btn:translate-x-1 transition-transform duration-200" />
-                                                </Link>
-                                                <button className="flex-1 bg-white/20 backdrop-blur-sm text-white py-3 px-6 rounded-xl font-semibold border border-white/30 hover:bg-white/30 transition-all duration-200 transform hover:scale-105">
-                                                    Learn More
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        {/* Hover Animation */}
-                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                    </div>
-                                )}
-                            </InView>
-                        )
-                    })}
+                    {offers.map((offer, index) => <OfferCard key={offer.id} offer={offer} index={index} />)}
                 </div>
 
                 {/* Bottom CTA Section */}

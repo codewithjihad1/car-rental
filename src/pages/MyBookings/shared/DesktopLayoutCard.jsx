@@ -6,7 +6,7 @@ const DesktopLayoutCard = ({bookings, formatDate, calculateDuration, getStatusSt
     return (
         <div className="hidden lg:block overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-gray-700">
+                <thead className="bg-gray-50 dark:bg-gray-900">
                     <tr>
                         <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             Car Details
@@ -33,7 +33,7 @@ const DesktopLayoutCard = ({bookings, formatDate, calculateDuration, getStatusSt
                     {bookings.map((booking, index) => (
                         <tr
                             key={booking._id}
-                            className={`hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-750'
+                            className={`hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-900'
                                 }`}
                         >
                             {/* Car Details */}

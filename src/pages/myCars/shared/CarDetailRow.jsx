@@ -8,9 +8,9 @@ const CarDetailRow = ({
     onView,
     isMobile = false
 }) => {
-    if (isMobile) {
-        // Mobile Card Layout
-        return (
+    // Mobile Card Layout
+    {
+        isMobile && (
             <div className="p-6 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
                 <div className="flex items-start space-x-4">
                     <img
@@ -79,7 +79,7 @@ const CarDetailRow = ({
 
     // Desktop Table Row Layout
     return (
-        <tr className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+        <tr className="hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors duration-200">
             <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
                     <div className="flex-shrink-0 h-16 w-24">
@@ -150,7 +150,8 @@ const CarDetailRow = ({
                         onClick={() => onDelete(car)}
                         className="bg-red-100 hover:bg-red-200 dark:bg-red-800 dark:hover:bg-red-700 text-red-600 dark:text-red-300 p-2 rounded-lg transition-colors duration-200"
                         title="Delete Car"
-                    >                        <FaTrash />
+                    >
+                        <FaTrash />
                     </button>
                 </div>
             </td>

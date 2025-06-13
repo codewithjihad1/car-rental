@@ -4,10 +4,10 @@ import { AuthContext } from '../../context/AuthContext'
 import { FaCar, FaPlus } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Loading from '../../components/Loading'
-import axiosInstance from '../../api/axios'
 import CarDetailRow from './shared/CarDetailRow'
 import UpdateCarModal from './shared/UpdateCarModal'
 import Swal from 'sweetalert2'
+import useAxiosInstance from '../../hooks/useAxiosInstance'
 
 const MyCars = () => {
     const { user } = useContext(AuthContext)
@@ -17,6 +17,7 @@ const MyCars = () => {
     const [showUpdateModal, setShowUpdateModal] = useState(false)
     const [selectedCar, setSelectedCar] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const axiosInstance = useAxiosInstance()
 
     // Load cars on component mount
     useEffect(() => {

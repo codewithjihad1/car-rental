@@ -1,100 +1,78 @@
-import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import { FaShieldAlt, FaClock, FaHeadset, FaMapMarkerAlt, FaCreditCard, FaStar, FaMobile, FaTools } from 'react-icons/fa'
 import CountUp from 'react-countup'
 import { InView } from 'react-intersection-observer'
+import ServiceCard from './ServiceCard'
+
+// services data
+const services = [
+    {
+        id: 1,
+        icon: FaShieldAlt,
+        title: "Comprehensive Insurance",
+        description: "Full coverage insurance included with every rental. Drive with confidence knowing you're protected.",
+        gradient: "from-blue-500 to-cyan-500",
+        delay: 0
+    },
+    {
+        id: 2,
+        icon: FaClock,
+        title: "24/7 Pickup & Drop-off",
+        description: "Flexible pickup and drop-off times to match your schedule. Available round the clock.",
+        gradient: "from-green-500 to-emerald-500",
+        delay: 100
+    },
+    {
+        id: 3,
+        icon: FaHeadset,
+        title: "Customer Support",
+        description: "Dedicated support team available 24/7 to assist you with any questions or emergencies.",
+        gradient: "from-purple-500 to-pink-500",
+        delay: 200
+    },
+    {
+        id: 4,
+        icon: FaMapMarkerAlt,
+        title: "Multiple Locations",
+        description: "Pick up your car from any of our convenient locations across major cities.",
+        gradient: "from-orange-500 to-red-500",
+        delay: 300
+    },
+    {
+        id: 5,
+        icon: FaCreditCard,
+        title: "Easy Payment",
+        description: "Secure payment options with flexible billing. Pay online or at pickup.",
+        gradient: "from-indigo-500 to-blue-500",
+        delay: 400
+    },
+    {
+        id: 6,
+        icon: FaStar,
+        title: "Premium Vehicles",
+        description: "High-quality, well-maintained vehicles from top brands. Regular maintenance guaranteed.",
+        gradient: "from-yellow-500 to-orange-500",
+        delay: 500
+    },
+    {
+        id: 7,
+        icon: FaMobile,
+        title: "Mobile App",
+        description: "Manage your bookings on the go with our user-friendly mobile application.",
+        gradient: "from-teal-500 to-green-500",
+        delay: 600
+    },
+    {
+        id: 8,
+        icon: FaTools,
+        title: "Roadside Assistance",
+        description: "24/7 roadside assistance and emergency support wherever your journey takes you.",
+        gradient: "from-red-500 to-pink-500",
+        delay: 700
+    }
+]
 
 const FeaturedServices = () => {
-    const [visibleItems, setVisibleItems] = useState(new Set());
-
-    const services = [
-        {
-            id: 1,
-            icon: FaShieldAlt,
-            title: "Comprehensive Insurance",
-            description: "Full coverage insurance included with every rental. Drive with confidence knowing you're protected.",
-            gradient: "from-blue-500 to-cyan-500",
-            delay: 0
-        },
-        {
-            id: 2,
-            icon: FaClock,
-            title: "24/7 Pickup & Drop-off",
-            description: "Flexible pickup and drop-off times to match your schedule. Available round the clock.",
-            gradient: "from-green-500 to-emerald-500",
-            delay: 100
-        },
-        {
-            id: 3,
-            icon: FaHeadset,
-            title: "Customer Support",
-            description: "Dedicated support team available 24/7 to assist you with any questions or emergencies.",
-            gradient: "from-purple-500 to-pink-500",
-            delay: 200
-        },
-        {
-            id: 4,
-            icon: FaMapMarkerAlt,
-            title: "Multiple Locations",
-            description: "Pick up your car from any of our convenient locations across major cities.",
-            gradient: "from-orange-500 to-red-500",
-            delay: 300
-        },
-        {
-            id: 5,
-            icon: FaCreditCard,
-            title: "Easy Payment",
-            description: "Secure payment options with flexible billing. Pay online or at pickup.",
-            gradient: "from-indigo-500 to-blue-500",
-            delay: 400
-        },
-        {
-            id: 6,
-            icon: FaStar,
-            title: "Premium Vehicles",
-            description: "High-quality, well-maintained vehicles from top brands. Regular maintenance guaranteed.",
-            gradient: "from-yellow-500 to-orange-500",
-            delay: 500
-        },
-        {
-            id: 7,
-            icon: FaMobile,
-            title: "Mobile App",
-            description: "Manage your bookings on the go with our user-friendly mobile application.",
-            gradient: "from-teal-500 to-green-500",
-            delay: 600
-        },
-        {
-            id: 8,
-            icon: FaTools,
-            title: "Roadside Assistance",
-            description: "24/7 roadside assistance and emergency support wherever your journey takes you.",
-            gradient: "from-red-500 to-pink-500",
-            delay: 700
-        }
-    ]
-
-    // Intersection Observer for animations
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setVisibleItems(prev => new Set([...prev, entry.target.dataset.serviceId]))
-                    }
-                })
-            },
-            {
-                threshold: 0.1,
-                rootMargin: '50px'
-            }
-        )
-
-        const serviceElements = document.querySelectorAll('[data-service-id]')
-        serviceElements.forEach(el => observer.observe(el))
-
-        return () => observer.disconnect()
-    }, [])
 
     return (
         <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
@@ -115,40 +93,7 @@ const FeaturedServices = () => {
 
                 {/* Services Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                    {services.map((service) => {
-                        const IconComponent = service.icon
-                        return (
-                            <div
-                                key={service.id}
-                                data-service-id={service.id}
-                                className={`group relative bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 dark:border-gray-700 transform transition-all duration-700 hover:-translate-y-2 ${visibleItems.has(service.id.toString())
-                                    ? 'translate-y-0 opacity-100'
-                                    : 'translate-y-10 opacity-0'
-                                    }`}
-                                style={{
-                                    transitionDelay: `${service.delay}ms`
-                                }}
-                            >
-                                {/* Background Gradient Effect */}
-                                <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}></div>
-
-                                {/* Icon */}
-                                <div className={`relative w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                                    <IconComponent className="text-2xl text-white" />
-                                </div>
-
-                                {/* Content */}
-                                <div className="relative">
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                                        {service.title}
-                                    </h3>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                        {service.description}
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                    })}
+                    {services.map((service) => <ServiceCard key={service.id} service={service} />)}
                 </div>
 
                 {/* Statistics Section */}

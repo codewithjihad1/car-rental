@@ -9,10 +9,10 @@ const Home = () => {
     return (
         <div className="py-4">
             <Banner />
-            <RecentCars />
-            <SpecialOffers />
             <WhyChooseUs />
+            <RecentCars />
             <FeaturedServices />
+            <SpecialOffers />
         </div>
     )
 }

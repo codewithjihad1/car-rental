@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaCar, FaDollarSign, FaMousePointer, FaHeadset } from 'react-icons/fa'
+import FeaturedCard from './FeaturedCard'
 
 const WhyChooseUs = () => {
     const features = [
@@ -7,25 +8,29 @@ const WhyChooseUs = () => {
             icon: FaCar,
             title: "Wide Variety of Cars",
             description: "From budget-friendly options to luxury vehicles. Choose from our extensive fleet of well-maintained cars that suit every budget and preference.",
-            gradient: "from-blue-500 to-cyan-500"
+            gradient: "from-blue-500 to-cyan-500",
+            delay: 0
         },
         {
             icon: FaDollarSign,
             title: "Affordable Prices",
             description: "Competitive daily rates you can count on. Transparent pricing with no hidden fees, ensuring you get the best value for your money.",
-            gradient: "from-green-500 to-emerald-500"
+            gradient: "from-green-500 to-emerald-500",
+            delay: 100
         },
         {
             icon: FaMousePointer,
             title: "Easy Booking Process",
             description: "Seamlessly book your ride in just a few clicks. Our user-friendly platform makes car rental quick, simple, and hassle-free.",
-            gradient: "from-purple-500 to-pink-500"
+            gradient: "from-purple-500 to-pink-500",
+            delay: 200
         },
         {
             icon: FaHeadset,
             title: "24/7 Customer Support",
             description: "Round-the-clock assistance for all your queries. Our dedicated support team is always ready to help you with any questions or concerns.",
-            gradient: "from-orange-500 to-red-500"
+            gradient: "from-orange-500 to-red-500",
+            delay: 300
         }
     ]
 
@@ -46,28 +51,7 @@ const WhyChooseUs = () => {
 
                 {/* Features Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {features.map((feature, index) => {
-                        const IconComponent = feature.icon
-                        return (
-                            <div
-                                key={index}
-                                className="group bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200 dark:border-gray-700"
-                            >
-                                {/* Icon */}
-                                <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                                    <IconComponent className="text-2xl text-white" />
-                                </div>
-
-                                {/* Content */}
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                                    {feature.title}
-                                </h3>
-                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                    {feature.description}
-                                </p>
-                            </div>
-                        )
-                    })}
+                    {features.map((feature, index) => <FeaturedCard key={index} feature={feature} />)}
                 </div>
 
                 {/* Call to Action */}
