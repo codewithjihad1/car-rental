@@ -1,32 +1,30 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, } from 'react'
 import { Link } from 'react-router'
-import { AuthContext } from '../context/AuthContext'
 import {
     FaCar,
     FaMapMarkerAlt,
-    FaDollarSign,
     FaCalendarAlt,
     FaUser,
     FaEye,
     FaTh,
     FaList,
     FaSort,
-    FaFilter,
     FaHeart,
     FaStar,
     FaCogs,
     FaGasPump
 } from 'react-icons/fa'
 import Loading from '../components/Loading'
-import axiosInstance from '../api/axios'
+import useAxiosInstance from '../hooks/useAxiosInstance'
 
 const AvailableCars = () => {
-    const { user } = useContext(AuthContext)
     const [cars, setCars] = useState([])
     const [loading, setLoading] = useState(true)
-    const [viewMode, setViewMode] = useState('grid') 
+    const [viewMode, setViewMode] = useState('grid')
     const [sortBy, setSortBy] = useState('newest')
     const [filteredCars, setFilteredCars] = useState([])
+
+    const axiosInstance = useAxiosInstance()
 
     // Load cars data
     useEffect(() => {

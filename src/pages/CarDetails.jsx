@@ -1,14 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate, Link } from 'react-router'
 import { AuthContext } from '../context/AuthContext'
 import {
     FaCar,
     FaMapMarkerAlt,
-    FaDollarSign,
     FaCalendarAlt,
-    FaUser,
-    FaPhone,
-    FaEnvelope,
     FaStar,
     FaStarHalfAlt,
     FaRegStar,
@@ -25,7 +21,7 @@ import {
 } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Loading from '../components/Loading'
-import axiosInstance from '../api/axios'
+import useAxiosInstance from '../hooks/useAxiosInstance'
 
 const CarDetails = () => {
     const { id } = useParams()
@@ -43,6 +39,8 @@ const CarDetails = () => {
     const [totalPrice, setTotalPrice] = useState(0)
     const [isFavorite, setIsFavorite] = useState(false)
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+    const axiosInstance = useAxiosInstance()
 
 
     // Load car details

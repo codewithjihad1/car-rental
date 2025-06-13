@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router'
 import { AuthContext } from '../context/AuthContext'
 import { FaCar, FaDollarSign, FaMapMarkerAlt, FaImage, FaFileAlt, FaCogs, FaIdCard, FaCalendarAlt } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import axiosInstance from '../api/axios'
+import useAxiosInstance from '../hooks/useAxiosInstance'
 
 const AddCar = () => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [errors, setErrors] = useState({})
+
+    const axiosInstance = useAxiosInstance()
 
     const [formData, setFormData] = useState({
         carModel: '',

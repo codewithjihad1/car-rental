@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import { FaCar, FaEye, FaMapMarkerAlt, FaClock, FaHeart } from 'react-icons/fa'
 import Loading from './Loading'
-import axiosInstance from '../api/axios'
+import useAxiosInstance from '../hooks/useAxiosInstance'
 
 const RecentCars = () => {
     const [recentCars, setRecentCars] = useState([])
     const [loading, setLoading] = useState(true)
     const [visibleCards, setVisibleCards] = useState(new Set())
+    const axiosInstance = useAxiosInstance()
 
     useEffect(() => {
         const loadRecentCars = async () => {
