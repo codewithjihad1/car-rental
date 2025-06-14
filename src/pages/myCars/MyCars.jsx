@@ -17,6 +17,9 @@ const MyCars = () => {
     const [showUpdateModal, setShowUpdateModal] = useState(false)
     const [selectedCar, setSelectedCar] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [sortBy, setSortBy] = useState('newest')
+    const [sortedCars, setSortedCars] = useState([])
+
     const axiosInstance = useAxiosInstance()
 
     // Load cars on component mount
@@ -114,6 +117,25 @@ const MyCars = () => {
         }
     }
 
+    // Sort cars based on selected option
+    useEffect(() => {
+        const sortedCars = [...cars].sort((a, b) => {
+            switch (sortBy) {
+                case 'newest':
+                    return new Date(b.dateAdded) - new Date(a.dateAdded)
+                case 'oldest':
+                    return new Date(a.dateAdded) - new Date(b.dateAdded)
+                case 'price-low':
+                    return a.dailyRentalPrice - b.dailyRentalPrice
+                case 'price-high':
+                    return b.dailyRentalPrice - a.dailyRentalPrice
+                default:
+                    return 0
+            }
+        })
+        setSortedCars(sortedCars)
+    }, [cars, sortBy])
+
     // loading state
     if (loading) {
         return <Loading />
@@ -132,17 +154,31 @@ const MyCars = () => {
                             Manage your car rental fleet
                         </p>
                     </div>
-                    <Link
+                    {/* <Link
                         to="/add-car"
                         className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                     >
                         <FaPlus className="mr-2" />
                         Add New Car
-                    </Link>
+                    </Link> */}
+
+                    {/* Sort Options */}
+                    <div className="flex items-center space-x-2">
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                        >
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                        </select>
+                    </div>
                 </div>
 
                 {/* Cars Table or Empty State */}
-                {cars.length === 0 ? (
+                {sortedCars.length === 0 ? (
                     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-12 text-center border border-gray-200 dark:border-gray-700">
                         <div className="mb-6">
                             <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-4 rounded-full inline-block">
@@ -192,7 +228,7 @@ const MyCars = () => {
                                     </th>
                                 </tr>
                                 </thead>                                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                                    {cars.map((car) => (
+                                    {sortedCars.map((car) => (
                                         <CarDetailRow
                                             key={car._id || car.id}
                                             car={car}
@@ -205,7 +241,7 @@ const MyCars = () => {
                         </div>
                         {/* Mobile Cards */}
                         <div className="lg:hidden">
-                            {cars.map((car) => (
+                            {sortedCars.map((car) => (
                                 <CarDetailRow
                                     key={car._id || car.id}
                                     car={car}

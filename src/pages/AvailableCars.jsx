@@ -12,7 +12,8 @@ import {
     FaHeart,
     FaStar,
     FaCogs,
-    FaGasPump
+    FaGasPump,
+    FaSearch
 } from 'react-icons/fa'
 import Loading from '../components/Loading'
 import useAxiosInstance from '../hooks/useAxiosInstance'
@@ -98,6 +99,17 @@ const AvailableCars = () => {
         return stars
     }
 
+
+    // Handle search input
+    const handleSearch = (e) => {
+        const query = e.target.value.toLowerCase()
+        const filtered = cars.filter(car =>
+            car.carModel.toLowerCase().includes(query) ||
+            car.location.toLowerCase().includes(query)
+        )
+        setFilteredCars(filtered)
+    }
+
     if (loading) {
         return <Loading />
     }
@@ -106,29 +118,42 @@ const AvailableCars = () => {
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <div className="mb-8">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                        Available Cars
-                    </h1>
-                    <p className="text-gray-600 dark:text-gray-400">
-                        Find the perfect car for your next journey
-                    </p>
+                <div className='flex justify-between items-center gap-6 flex-col lg:flex-row mb-8'>
+                    <div>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                            Available Cars
+                        </h1>
+                        <p className="text-gray-600 dark:text-gray-400">
+                            Find the perfect car for your next journey
+                        </p>
+                    </div>
+
+                    {/* search field */}
+                    <div className="relative w-full max-w-md">
+                        <input
+                            type="text"
+                            placeholder="Search cars..."
+                            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white w-full"
+                            onChange={handleSearch}
+                        />
+                        <FaSearch className="absolute right-4 top-3 text-gray-500 dark:text-gray-400 cursor-pointer" />
+                    </div>
                 </div>
 
+
                 {/* Controls */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 lg:p-6 mb-8">
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                         {/* Results Count */}
-                        <div className="flex items-center text-gray-600 dark:text-gray-400">
+                        <div className="hidden lg:flex items-center text-gray-600 dark:text-gray-400">
                             <FaCar className="mr-2" />
                             <span>{filteredCars.length} cars available</span>
                         </div>
 
                         {/* Controls */}
-                        <div className="flex flex-col sm:flex-row gap-4">
+                        <div className="flex justify-between items-center gap-2 lg:gap-4">
                             {/* Sort Options */}
                             <div className="flex items-center space-x-2">
-                                <FaSort className="text-gray-500 dark:text-gray-400" />
                                 <select
                                     value={sortBy}
                                     onChange={(e) => setSortBy(e.target.value)}
@@ -145,23 +170,23 @@ const AvailableCars = () => {
                             <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
                                 <button
                                     onClick={() => setViewMode('grid')}
-                                    className={`flex items-center px-3 py-2 rounded-md transition-all duration-200 ${viewMode === 'grid'
+                                    className={`lg:flex items-center gap-2 px-3 py-2 rounded-md transition-all duration-200 ${viewMode === 'grid'
                                         ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
                                         : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                                         }`}
                                 >
-                                    <FaTh className="mr-2" />
-                                    Grid
+                                    <FaTh/>
+                                    <span className='hidden lg:inline-block'>Grid</span>
                                 </button>
                                 <button
                                     onClick={() => setViewMode('list')}
-                                    className={`flex items-center px-3 py-2 rounded-md transition-all duration-200 ${viewMode === 'list'
+                                    className={`flex items-center gap-2 px-3 py-2 rounded-md transition-all duration-200 ${viewMode === 'list'
                                         ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow-sm'
                                         : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                                         }`}
                                 >
-                                    <FaList className="mr-2" />
-                                    List
+                                    <FaList />
+                                    <span className='hidden lg:inline-block'>List</span>
                                 </button>
                             </div>
                         </div>
