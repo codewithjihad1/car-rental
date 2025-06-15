@@ -1,7 +1,13 @@
 import { Link } from 'react-router';
 import { FaCar, FaHome, FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const ErrorNotFoundPage = () => {
+
+    // useDocumentTitle 
+    useDocumentTitle('404 - Page Not Found');
+
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl w-full text-center">

@@ -22,6 +22,7 @@ import {
 import { toast } from 'react-toastify'
 import Loading from '../components/Loading'
 import useAxiosInstance from '../hooks/useAxiosInstance'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 
 const CarDetails = () => {
     const { id } = useParams()
@@ -42,6 +43,8 @@ const CarDetails = () => {
 
     const axiosInstance = useAxiosInstance()
 
+    // useDocumentTitle
+    useDocumentTitle(`Car Details - ${car ? car.carModel : 'Loading...'}`);
 
     // Load car details
     useEffect(() => {

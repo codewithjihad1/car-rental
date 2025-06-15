@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { AuthContext } from '../context/AuthContext'
 import { FaCar, FaDollarSign, FaMapMarkerAlt, FaImage, FaFileAlt, FaCogs, FaIdCard, FaCalendarAlt } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import useAxiosInstance from '../hooks/useAxiosInstance'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 
 const AddCar = () => {
     const { user } = useContext(AuthContext)
@@ -24,6 +25,10 @@ const AddCar = () => {
         location: '',
         bookingCount: 0
     })
+
+    //  useDocumentTitle
+    useDocumentTitle('Add New Car - Car Rental App')
+
 
     // Handle input changes
     const handleInputChange = (e) => {

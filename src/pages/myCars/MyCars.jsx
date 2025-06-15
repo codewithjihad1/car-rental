@@ -8,6 +8,7 @@ import CarDetailRow from './shared/CarDetailRow'
 import UpdateCarModal from './shared/UpdateCarModal'
 import Swal from 'sweetalert2'
 import useAxiosInstance from '../../hooks/useAxiosInstance'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 const MyCars = () => {
     const { user } = useContext(AuthContext)
@@ -21,6 +22,9 @@ const MyCars = () => {
     const [sortedCars, setSortedCars] = useState([])
 
     const axiosInstance = useAxiosInstance()
+
+    // useDocumentTitle
+    useDocumentTitle('My Cars - Car Rental App');
 
     // Load cars on component mount
     useEffect(() => {
@@ -154,13 +158,6 @@ const MyCars = () => {
                             Manage your car rental fleet
                         </p>
                     </div>
-                    {/* <Link
-                        to="/add-car"
-                        className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-                    >
-                        <FaPlus className="mr-2" />
-                        Add New Car
-                    </Link> */}
 
                     {/* Sort Options */}
                     <div className="flex items-center space-x-2">

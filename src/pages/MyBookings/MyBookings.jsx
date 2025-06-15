@@ -15,6 +15,7 @@ import CancelBookingModal from './shared/CancelBookingModal'
 import MobileCard from './shared/MobileCard'
 import DesktopLayoutCard from './shared/DesktopLayoutCard'
 import useAxiosInstance from '../../hooks/useAxiosInstance'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 const MyBookings = () => {
     const { user } = useContext(AuthContext)
@@ -30,6 +31,9 @@ const MyBookings = () => {
     })
 
     const axiosInstance = useAxiosInstance()
+
+    // useDocumentTitle
+    useDocumentTitle('My Bookings - Car Rental');
 
     // Load bookings
     useEffect(() => {

@@ -17,6 +17,7 @@ import {
 } from 'react-icons/fa'
 import Loading from '../components/Loading'
 import useAxiosInstance from '../hooks/useAxiosInstance'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 
 const AvailableCars = () => {
     const [cars, setCars] = useState([])
@@ -26,6 +27,9 @@ const AvailableCars = () => {
     const [filteredCars, setFilteredCars] = useState([])
 
     const axiosInstance = useAxiosInstance()
+
+    // useDocumentTitle
+    useDocumentTitle('Available Cars - Car Rental App');
 
     // Load cars data
     useEffect(() => {

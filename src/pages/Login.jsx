@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash, FaGoogle, FaEnvelope, FaLock, FaCar } from 'react-ic
 import Loading from '../components/Loading'
 import { toast } from 'react-toastify'
 import LoginWithGoogle from '../components/LoginWithGoogle'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 
 const Login = () => {
     const { loginWithEmailPassword, loginWithGoogle, user, loading, errorMessage } = useContext(AuthContext)
@@ -19,6 +20,9 @@ const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/'
+
+    // useDocumentTitle
+    useDocumentTitle('Login - Car Rental Service')
 
     // Redirect if user is already logged in
     useEffect(() => {
