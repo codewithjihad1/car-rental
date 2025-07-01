@@ -5,7 +5,7 @@ import { Typewriter } from 'react-simple-typewriter'
 const Banner = () => {
     return (
         <div className='container mx-auto rounded-xl' style={{ backgroundImage: 'url(https://i.imgur.com/5ya8vuL.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center', }}>
-            <div className="flex items-center justify-center flex-col py-10 px-4 sm:px-6 lg:px-8 rounded-xl" style={{ background: "#00000070", minHeight: "calc(100vh - 100px)" }}>
+            <div className="flex items-center justify-center flex-col py-10 px-4 sm:px-6 lg:px-8 rounded-xl" style={{ background: "#00000070", minHeight: "calc(90vh - 100px)" }}>
                 <div className="text-center">
                     <h1 className="text-4xl font-bold text-gray-200 dark:text-white sm:text-5xl md:text-6xl">
                         <Typewriter
