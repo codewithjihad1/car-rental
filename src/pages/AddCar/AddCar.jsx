@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { AuthContext } from '../context/AuthContext'
 import { FaCar, FaDollarSign, FaMapMarkerAlt, FaImage, FaFileAlt, FaCogs, FaIdCard, FaCalendarAlt } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import useAxiosInstance from '../hooks/useAxiosInstance'
-import useDocumentTitle from '../hooks/useDocumentTitle'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
+import { AuthContext } from '../../context/AuthContext'
+import useAxiosInstance from '../../hooks/useAxiosInstance'
 
 const AddCar = () => {
     const { user } = useContext(AuthContext)

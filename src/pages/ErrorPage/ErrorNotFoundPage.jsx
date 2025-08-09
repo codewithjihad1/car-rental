@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { FaCar, FaHome, FaExclamationTriangle, FaArrowLeft } from 'react-icons/fa';
-import useDocumentTitle from '../hooks/useDocumentTitle';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const ErrorNotFoundPage = () => {
 

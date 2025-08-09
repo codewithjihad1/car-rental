@@ -1,16 +1,14 @@
 import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
-import AuthLayout from "../layouts/AuthLayout";
+import CarDetails from "../pages/CarDetails/CarDetails";
+import AddCar from "../pages/AddCar/AddCar";
 import PrivateRoute from "../components/PrivateRoute";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import AddCar from "../pages/AddCar";
-import AvailableCars from "../pages/AvailableCars";
-import CarDetails from "../pages/CarDetails";
-import ErrorNotFoundPage from "../pages/ErrorNotFoundPage";
 import MyCars from "../pages/myCars/MyCars";
 import MyBookings from "../pages/MyBookings/MyBookings";
+import Login from "../pages/Auth/Login/Login";
+import Signup from "../pages/Auth/Signup/Signup";
+import ErrorNotFoundPage from "../pages/ErrorPage/ErrorNotFoundPage";
+import Home from "../pages/Home/Home";
 
 const router = createBrowserRouter([
     {
@@ -20,13 +18,16 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />,
-            }, {
+            },
+            {
                 path: "available-cars",
                 element: <AvailableCars />,
-            }, {
+            },
+            {
                 path: "car-details/:id",
-                element: <PrivateRoute><CarDetails /></PrivateRoute>
-            }, {
+                Component: CarDetails,
+            },
+            {
                 path: "add-car",
                 element: (
                     <PrivateRoute>

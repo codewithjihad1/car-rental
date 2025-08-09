@@ -1,18 +1,20 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router'
-import { AuthContext } from '../context/AuthContext'
-import { FaEye, FaEyeSlash, FaGoogle, FaEnvelope, FaLock, FaCar } from 'react-icons/fa'
-import Loading from '../components/Loading'
+import { AuthContext } from '../../../context/AuthContext'
+import { FaEye, FaEyeSlash, FaGoogle, FaEnvelope, FaLock, FaCar, FaUser, FaImage } from 'react-icons/fa'
+import Loading from '../../../components/Loading'
 import { toast } from 'react-toastify'
-import LoginWithGoogle from '../components/LoginWithGoogle'
-import useDocumentTitle from '../hooks/useDocumentTitle'
+import LoginWithGoogle from '../../../components/LoginWithGoogle'
+import useDocumentTitle from '../../../hooks/useDocumentTitle'
 
-const Login = () => {
-    const { loginWithEmailPassword, loginWithGoogle, user, loading, errorMessage } = useContext(AuthContext)
+const Signup = () => {
+    const { signupWithEmailPassword, loginWithGoogle, user, loading, errorMessage } = useContext(AuthContext)
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
+        name: '',
         email: '',
-        password: ''
+        password: '',
+        photoURL: ''
     })
     const [errors, setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -22,7 +24,7 @@ const Login = () => {
     const from = location.state?.from?.pathname || '/'
 
     // useDocumentTitle
-    useDocumentTitle('Login - Car Rental Service')
+    useDocumentTitle('Sign Up - Car Rental Service');
 
     // Redirect if user is already logged in
     useEffect(() => {
@@ -51,24 +53,45 @@ const Login = () => {
     const validateForm = () => {
         const newErrors = {}
 
+        // Name validation
+        if (!formData.name.trim()) {
+            newErrors.name = 'Name is required'
+        } else if (formData.name.trim().length < 2) {
+            newErrors.name = 'Name must be at least 2 characters'
+        } else if (formData.name.trim().length > 50) {
+            newErrors.name = 'Name must be less than 50 characters'
+        }
+
+        // Email validation
         if (!formData.email.trim()) {
             newErrors.email = 'Email is required'
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email'
+            newErrors.email = 'Please enter a valid email address'
         }
 
+        // Password validation
         if (!formData.password) {
             newErrors.password = 'Password is required'
         } else if (formData.password.length < 6) {
             newErrors.password = 'Password must be at least 6 characters'
+        } else if (!/(?=.*[a-z])/.test(formData.password)) {
+            newErrors.password = 'Password must contain at least one lowercase letter'
+        } else if (!/(?=.*[A-Z])/.test(formData.password)) {
+            newErrors.password = 'Password must contain at least one uppercase letter'
+        }        // Photo URL validation (optional but if provided, should be valid)
+        if (formData.photoURL && formData.photoURL.trim()) {
+            const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
+            if (!urlPattern.test(formData.photoURL.trim())) {
+                newErrors.photoURL = 'Please enter a valid URL'
+            }
         }
 
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
     }
 
-    // Handle email/password login
-    const handleEmailLogin = async (e) => {
+    // Handle registration
+    const handleRegistration = async (e) => {
         e.preventDefault()
 
         if (!validateForm()) return
@@ -76,26 +99,31 @@ const Login = () => {
         setIsSubmitting(true)
 
         try {
-            await loginWithEmailPassword(formData.email, formData.password)
-            toast.success('Login successful!')
+            await signupWithEmailPassword(
+                formData.email,
+                formData.password,
+                formData.name.trim(),
+                formData.photoURL.trim()
+            )
+            toast.success('Registration successful! Welcome to CarRental!')
             navigate(from, { replace: true })
         } catch (error) {
-            toast.error(error.message || 'Login failed. Please try again.')
+            toast.error(error.message || 'Registration failed. Please try again.')
         } finally {
             setIsSubmitting(false)
         }
     }
 
-    // Handle Google login
-    const handleGoogleLogin = async () => {
+    // Handle Google registration
+    const handleGoogleSignup = async () => {
         setIsSubmitting(true)
 
         try {
             await loginWithGoogle()
-            toast.success('Google login successful!')
+            toast.success('Google registration successful!')
             navigate(from, { replace: true })
         } catch (error) {
-            toast.error(error.message || 'Google login failed. Please try again.')
+            toast.error(error.message || 'Google registration failed. Please try again.')
         } finally {
             setIsSubmitting(false)
         }
@@ -123,16 +151,40 @@ const Login = () => {
                         </div>
                     </div>
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                        Welcome Back
+                        Create Account
                     </h2>
                     <p className="text-gray-600 dark:text-gray-400">
-                        Sign in to your CarRental account
+                        Join CarRental and start your journey
                     </p>
                 </div>
 
-                {/* Login Form */}
+                {/* Registration Form */}
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700">
-                    <form onSubmit={handleEmailLogin} className="space-y-6">
+                    <form onSubmit={handleRegistration} className="space-y-6">
+                        {/* Name Field */}
+                        <div>
+                            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Full Name
+                            </label>
+                            <div className="relative">
+                                <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                <input
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    autoComplete="name"
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white dark:border-gray-600 transition-colors duration-200 ${errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                                        }`}
+                                    placeholder="Enter your full name"
+                                />
+                            </div>
+                            {errors.name && (
+                                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>
+                            )}
+                        </div>
+
                         {/* Email Field */}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -168,12 +220,12 @@ const Login = () => {
                                     id="password"
                                     name="password"
                                     type={showPassword ? 'text' : 'password'}
-                                    autoComplete="current-password"
+                                    autoComplete="new-password"
                                     value={formData.password}
                                     onChange={handleInputChange}
                                     className={`w-full pl-10 pr-12 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white dark:border-gray-600 transition-colors duration-200 ${errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                                         }`}
-                                    placeholder="Enter your password"
+                                    placeholder="Create a strong password"
                                 />
                                 <button
                                     type="button"
@@ -186,31 +238,47 @@ const Login = () => {
                             {errors.password && (
                                 <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>
                             )}
+                            <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                Password must contain uppercase, lowercase letters and be at least 6 characters
+                            </div>
                         </div>
 
-                        {/* Forgot Password Link */}
-                        <div className="text-right">
-                            <Link
-                                to="/forgot-password"
-                                className="text-sm text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-200"
-                            >
-                                Forgot your password?
-                            </Link>
+                        {/* Photo URL Field */}
+                        <div>
+                            <label htmlFor="photoURL" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Photo URL (Optional)
+                            </label>
+                            <div className="relative">
+                                <FaImage className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                <input
+                                    id="photoURL"
+                                    name="photoURL"
+                                    type="url"
+                                    value={formData.photoURL}
+                                    onChange={handleInputChange}
+                                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white dark:border-gray-600 transition-colors duration-200 ${errors.photoURL ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                                        }`}
+                                    placeholder="https://example.com/your-photo.jpg"
+                                />
+                            </div>
+                            {errors.photoURL && (
+                                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.photoURL}</p>
+                            )}
                         </div>
 
-                        {/* Login Button */}
+                        {/* Register Button */}
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200"
+                            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200 cursor-pointer"
                         >
                             {isSubmitting ? (
                                 <div className="flex items-center justify-center">
                                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                                    Signing In...
+                                    Creating Account...
                                 </div>
                             ) : (
-                                'Sign In'
+                                'Create Account'
                             )}
                         </button>
                     </form>
@@ -222,18 +290,18 @@ const Login = () => {
                         <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
                     </div>
 
-                    {/* Google Login Button */}
-                    <LoginWithGoogle handleGoogleLogin={handleGoogleLogin} />
+                    {/* Google Signup Button */}
+                    <LoginWithGoogle handleGoogleLogin={handleGoogleSignup} buttonText="Sign up with Google" />
 
-                    {/* Sign Up Link */}
+                    {/* Login Link */}
                     <div className="text-center mt-6">
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Don't have an account?{' '}
+                            Already have an account?{' '}
                             <Link
-                                to="/auth/signup"
+                                to="/auth/login"
                                 className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors duration-200"
                             >
-                                Sign up here
+                                Sign in here
                             </Link>
                         </p>
                     </div>
@@ -243,4 +311,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Signup
