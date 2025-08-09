@@ -1,5 +1,5 @@
 import { FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa'
-import StarRating from './StarRating'
+import StarRating from '../../../components/StarRating'
 
 const CarInfoHeader = ({ car, getTimeAgo }) => {
     return (

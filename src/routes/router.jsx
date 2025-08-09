@@ -9,6 +9,8 @@ import Login from "../pages/Auth/Login/Login";
 import Signup from "../pages/Auth/Signup/Signup";
 import ErrorNotFoundPage from "../pages/ErrorPage/ErrorNotFoundPage";
 import Home from "../pages/Home/Home";
+import AvailableCars from "../pages/AvailableCars";
+import AuthLayout from "../layouts/AuthLayout";
 
 const router = createBrowserRouter([
     {

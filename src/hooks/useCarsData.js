@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useAxiosInstance from "../useAxiosInstance";
+import useAxiosInstance from "./useAxiosInstance";
 
 const useCarsData = () => {
     const [cars, setCars] = useState([]);

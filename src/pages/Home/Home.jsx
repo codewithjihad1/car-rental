@@ -1,8 +1,8 @@
-import Banner from '../components/Banner';
-import WhyChooseUs from '../components/WhyChooseUs';
-import RecentCars from '../components/RecentCars';
-import FeaturedServices from '../components/FeaturedServices';
-import SpecialOffers from '../components/SpecialOffers';
+import Banner from '../../components/Banner';
+import WhyChooseUs from '../../components/WhyChooseUs';
+import RecentCars from '../../components/RecentCars';
+import FeaturedServices from '../../components/FeaturedServices';
+import SpecialOffers from '../../components/SpecialOffers';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const Home = () => {

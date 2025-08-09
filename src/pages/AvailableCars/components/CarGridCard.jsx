@@ -9,8 +9,9 @@ import {
     FaCogs,
     FaGasPump,
 } from 'react-icons/fa'
+import StarRating from '../../../components/StarRating'
 
-const CarGridCard = ({ car, getTimeAgo, renderStars }) => {
+const CarGridCard = ({ car, getTimeAgo }) => {
     return (
         <div className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transform transition-all duration-300 hover:scale-105 hover:-translate-y-2">
             {/* Car Image */}
@@ -55,7 +56,7 @@ const CarGridCard = ({ car, getTimeAgo, renderStars }) => {
                         {car.carModel}
                     </h3>
                     <div className="flex items-center space-x-1">
-                        {renderStars(car.rating)}
+                        <StarRating rating={car.rating} />
                         <span className="text-sm text-gray-500 ml-1">({car.rating})</span>
                     </div>
                 </div>

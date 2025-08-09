@@ -15,7 +15,7 @@ import useBooking from './hooks/useBooking'
 import useCarActions from './hooks/useCarActions'
 
 // Utils
-import { getTimeAgo } from './components/utils'
+import { getTimeAgo } from '../../utils/utils'
 import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 const CarDetails = () => {

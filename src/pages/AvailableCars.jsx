@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import Loading from '../../components/Loading'
-import useCarsData from '../../hooks/useCarsData'
-import useCarsFilter from '../../hooks/useCarsFilter'
-import CarsControls from './components/CarsControls'
-import CarsGrid from './components/CarsGrid'
-import EmptyState from './components/EmptyState'
-import { getTimeAgo } from '../../utils/utils'
-import useDocumentTitle from '../../hooks/useDocumentTitle'
-import PageHeader from './components/PageHeader'
+import Loading from '../components/Loading'
+import useDocumentTitle from '../hooks/useDocumentTitle'
+import useCarsData from '../hooks/useCarsData'
+import useCarsFilter from '../hooks/useCarsFilter'
+import PageHeader from './AvailableCars/components/PageHeader'
+import CarsControls from './AvailableCars/components/CarsControls'
+import CarsGrid from './AvailableCars/components/CarsGrid'
+import EmptyState from './AvailableCars/components/EmptyState'
+import { getTimeAgo } from '../utils/utils'
 
 const AvailableCars = () => {
     const [viewMode, setViewMode] = useState('grid')
