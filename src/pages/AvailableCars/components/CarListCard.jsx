@@ -50,14 +50,10 @@ const CarListCard = ({ car, getTimeAgo }) => {
                                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
                                     {car.carModel}
                                 </h3>
-                                <div className="flex items-center space-x-1 ml-4">
-                                    <StarRating rating={car.rating} />
-                                    <span className="text-sm text-gray-500 ml-1">({car.rating})</span>
-                                </div>
                             </div>
 
                             {/* Location and Owner */}
-                            <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-gray-500 dark:text-gray-400">
+                            <div className="flex flex-col gap-4 mb-4 text-sm text-gray-500 dark:text-gray-400">
                                 <div className="flex items-center">
                                     <FaMapMarkerAlt className="mr-1" />
                                     <span>{car.location}</span>
@@ -70,22 +66,6 @@ const CarListCard = ({ car, getTimeAgo }) => {
                                     <FaCalendarAlt className="mr-1" />
                                     <span>{getTimeAgo(car.dateAdded)}</span>
                                 </div>
-                            </div>
-
-                            {/* Description */}
-                            <p className="text-gray-600 dark:text-gray-400 mb-4">
-                                {car.description}
-                            </p>
-
-                            {/* Features */}
-                            <div className="mb-4">
-                                <div className="flex items-center mb-2">
-                                    <FaCogs className="mr-2 text-gray-500 dark:text-gray-400" />
-                                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Features:</span>
-                                </div>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    {car.features}
-                                </p>
                             </div>
 
                             {/* Stats */}

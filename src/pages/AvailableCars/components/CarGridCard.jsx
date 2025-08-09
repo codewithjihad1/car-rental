@@ -61,23 +61,6 @@ const CarGridCard = ({ car, getTimeAgo }) => {
                     </div>
                 </div>
 
-                {/* Location */}
-                <div className="flex items-center text-gray-500 dark:text-gray-400 mb-3">
-                    <FaMapMarkerAlt className="mr-2 text-sm flex-shrink-0" />
-                    <span className="text-sm truncate">{car.location}</span>
-                </div>
-
-                {/* Features */}
-                <div className="mb-4">
-                    <div className="flex items-center mb-2">
-                        <FaCogs className="mr-2 text-gray-500 dark:text-gray-400" />
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Features:</span>
-                    </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-                        {car.features}
-                    </p>
-                </div>
-
                 {/* Price and Stats */}
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-baseline">

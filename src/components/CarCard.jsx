@@ -75,12 +75,6 @@ const CarCard = ({ car, index, getTimeAgo }) => {
                             {car.carModel}
                         </h3>
 
-                        {/* Location */}
-                        <div className="flex items-center text-gray-500 dark:text-gray-400 mb-3">
-                            <FaMapMarkerAlt className="mr-2 text-sm flex-shrink-0" />
-                            <span className="text-sm truncate">{car.location}</span>
-                        </div>
-
                         {/* Price and Features */}
                         <div className="space-y-3 mb-4">
                             <div className="flex items-center justify-between">
@@ -94,12 +88,6 @@ const CarCard = ({ car, index, getTimeAgo }) => {
                                     <FaCar className="mr-1" />
                                     <span>{car.bookingCount} bookings</span>
                                 </div>
-                            </div>
-
-                            {/* Features Preview */}
-                            <div className="text-sm text-gray-600 dark:text-gray-400">
-                                <span className="font-medium">Features:</span>
-                                <span className="ml-1 truncate block">{car.features}</span>
                             </div>
                         </div>
 
