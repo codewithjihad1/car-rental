@@ -21,7 +21,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 import 'swiper/css/parallax'
 
-import { bannerSlides, bannerStats, bannerConfig } from './bannerConfig'
+import { bannerSlides, bannerConfig } from './bannerConfig'
 
 const Banner = () => {
     const [currentSlide, setCurrentSlide] = useState(0)
