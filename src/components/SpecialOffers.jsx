@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { FaPercent, FaCar, FaGift, FaArrowRight, FaClock, FaCalendarAlt, FaCrown } from 'react-icons/fa'
+import { FaPercent, FaCar, FaGift, FaArrowRight, FaClock, FaCalendarAlt, FaCrown, FaGifts, FaStar } from 'react-icons/fa'
 import OfferCard from './OfferCard';
 
 // offers data
@@ -35,7 +35,43 @@ const offers = [
         features: ["Premium Insurance", "VIP Service", "Leather Interiors"],
         tag: "LIMITED",
         animationDelay: "150ms"
-    }
+    },
+    {
+    id: 3,
+    title: "First Time Bonus",
+    subtitle: "Welcome new customers",
+    discount: "25% OFF",
+    description:
+      "New to our platform? Get 25% off your first rental plus free roadside assistance!",
+    originalPrice: "$100",
+    discountedPrice: "$75",
+    validity: "First booking only",
+    icon: FaGifts,
+    gradient: "from-green-500 to-emerald-500",
+    bgImage:
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=400&fit=crop",
+    features: ["Roadside Assistance", "Fuel Included", "Easy Booking"],
+    tag: "NEW USER",
+    animationDelay: "300ms",
+  },
+  {
+    id: 4,
+    title: "Long Term Discount",
+    subtitle: "Extended rental savings",
+    discount: "40% OFF",
+    description:
+      "Book for 7+ days and save 40%! Perfect for business trips or extended vacations.",
+    originalPrice: "$85",
+    discountedPrice: "$51",
+    validity: "Minimum 7 days",
+    icon: FaStar,
+    gradient: "from-orange-500 to-red-500",
+    bgImage:
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&h=400&fit=crop",
+    features: ["Weekly Rates", "Mile Unlimited", "Flexible Return"],
+    tag: "BEST VALUE",
+    animationDelay: "450ms",
+  },
 ];
 
 
