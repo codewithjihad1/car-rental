@@ -34,6 +34,7 @@ const Navbar = () => {
     const userNavItems = [
         { name: 'Home', path: '/' },
         { name: 'Available Cars', path: '/available-cars' },
+        { name: 'Dashboard', path: '/dashboard' },
         { name: 'Add Car', path: '/add-car' },
         { name: 'My Cars', path: '/my-cars' },
         { name: 'My Bookings', path: '/my-bookings' }

@@ -5,12 +5,14 @@ import AddCar from "../pages/AddCar/AddCar";
 import PrivateRoute from "../components/PrivateRoute";
 import MyCars from "../pages/myCars/MyCars";
 import MyBookings from "../pages/MyBookings/MyBookings";
+import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Auth/Login/Login";
 import Signup from "../pages/Auth/Signup/Signup";
 import ErrorNotFoundPage from "../pages/ErrorPage/ErrorNotFoundPage";
 import Home from "../pages/Home/Home";
-import AvailableCars from "../pages/AvailableCars";
 import AuthLayout from "../layouts/AuthLayout";
+import DashboardStats from "../pages/Dashboard/components/DashboardStats";
+import AvailableCars from "../pages/AvailableCars/AvailableCars";
 
 const router = createBrowserRouter([
     {
@@ -69,6 +71,46 @@ const router = createBrowserRouter([
             },
         ],
     },
+
+    {
+        path: "dashboard",
+        element: (
+            <PrivateRoute>
+                <Dashboard />
+            </PrivateRoute>
+        ),
+        children: [
+            {
+                index: true,
+                element: <DashboardStats />,
+            },
+            {
+                path: "add-car",
+                element: (
+                    <PrivateRoute>
+                        <AddCar />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "my-cars",
+                element: (
+                    <PrivateRoute>
+                        <MyCars />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "my-bookings",
+                element: (
+                    <PrivateRoute>
+                        <MyBookings />
+                    </PrivateRoute>
+                ),
+            },
+        ],
+    },
+
     {
         path: "*",
         element: <ErrorNotFoundPage />,
