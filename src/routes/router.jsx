@@ -13,6 +13,7 @@ import Home from "../pages/Home/Home";
 import AuthLayout from "../layouts/AuthLayout";
 import DashboardStats from "../pages/Dashboard/components/DashboardStats";
 import AvailableCars from "../pages/AvailableCars/AvailableCars";
+import AdvancedCarSearch from "../pages/AvailableCars/components/AdvancedCarSearch";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: "available-cars",
                 element: <AvailableCars />,
+            },
+            {
+                path: "advanced-search",
+                element: <AdvancedCarSearch />,
             },
             {
                 path: "car-details/:id",

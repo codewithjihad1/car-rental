@@ -1,3 +1,5 @@
+import AdvancedCarSearch from './AdvancedCarSearch'
+import AdvancedFilterBar from './AdvancedFilterBar'
 import SearchBar from './SearchBar'
 
 const PageHeader = ({ onSearch }) => {
@@ -12,7 +14,8 @@ const PageHeader = ({ onSearch }) => {
                 </p>
             </div>
 
-            <SearchBar onSearch={onSearch} />
+            {/* <SearchBar onSearch={onSearch} /> */}
+            <AdvancedCarSearch onSearch={onSearch} />
         </div>
     )
 }

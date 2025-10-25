@@ -1,0 +1,56 @@
+/* Leaflet CSS overrides for dark mode */
+.leaflet-container {
+    background: #374151;
+}
+
+.dark .leaflet-popup-content-wrapper {
+    background-color: #1f2937;
+    color: #f3f4f6;
+}
+
+.dark .leaflet-popup-tip {
+    background-color: #1f2937;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: #374151;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #4b5563;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+/* Custom Popup Styles */
+.custom-popup .leaflet-popup-content {
+    margin: 0;
+    padding: 0;
+    width: auto !important;
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+}

@@ -1,19 +1,11 @@
-import { Link } from 'react-router'
-import {
-    FaMapMarkerAlt,
-    FaCalendarAlt,
-    FaUser,
-    FaEye,
-    FaHeart,
-    FaStar,
-    FaCogs,
-    FaGasPump,
-} from 'react-icons/fa'
-import StarRating from '../../../components/StarRating'
+import { Link } from 'react-router';
+import { FaCalendarAlt, FaUser, FaHeart, FaGasPump, FaEye } from 'react-icons/fa';
+import StarRating from '../../../components/StarRating';
 
-const CarGridCard = ({ car, getTimeAgo }) => {
+const CarGridCard = ({ car, isHovered }) => {
     return (
-        <div className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transform transition-all duration-300 hover:scale-105 hover:-translate-y-2">
+        <div className={`group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transform transition-all duration-300 ${isHovered ? 'scale-105 ring-2 ring-blue-500' : 'hover:scale-105'
+            } hover:-translate-y-2`}>
             {/* Car Image */}
             <div className="relative overflow-hidden">
                 <img
@@ -83,7 +75,7 @@ const CarGridCard = ({ car, getTimeAgo }) => {
                     </div>
                     <div className="flex items-center">
                         <FaCalendarAlt className="mr-1" />
-                        <span>{getTimeAgo(car.dateAdded)}</span>
+                        {/* <span>{getTimeAgo(car?.dateAdded)}</span> */}
                     </div>
                 </div>
 
