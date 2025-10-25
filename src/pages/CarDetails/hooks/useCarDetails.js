@@ -14,7 +14,7 @@ const useCarDetails = (id) => {
         const loadCarDetails = async () => {
             try {
                 setLoading(true);
-                const response = await axiosInstance.get(`/cars/${id}`);
+                const response = await axiosInstance.get(`/api/cars/${id}`);
                 setCar(response.data);
             } catch (error) {
                 console.error("Error loading car details:", error);

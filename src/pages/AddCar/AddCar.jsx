@@ -133,7 +133,7 @@ const AddCar = () => {
                 userPhoto: user.photoURL || ''
             }
 
-            await axiosInstance.post('/cars', carData)
+            await axiosInstance.post('/api/cars', carData)
 
             toast.success('Car added successfully!')
             navigate('/my-cars')

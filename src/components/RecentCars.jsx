@@ -14,7 +14,7 @@ const RecentCars = () => {
         const loadRecentCars = async () => {
             try {
                 setLoading(true)
-                const response = await axiosInstance.get('/cars/recently-added')
+                const response = await axiosInstance.get('/api/cars/recently-added')
                 setRecentCars(response.data)
             } catch (error) {
                 console.error('Error loading recent cars:', error)

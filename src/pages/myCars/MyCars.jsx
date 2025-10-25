@@ -31,7 +31,7 @@ const MyCars = () => {
         const loadCars = async () => {
             try {
                 setLoading(true)
-                const response = await axiosInstance.get(`/cars?userEmail=${user.email}`)
+                const response = await axiosInstance.get(`/api/cars?userEmail=${user.email}`)
                 const data = response.data
 
                 setCars(data)
@@ -58,7 +58,7 @@ const MyCars = () => {
     const handleUpdateCar = async (carId, updatedData) => {
         setIsSubmitting(true)
         try {
-            const response = await axiosInstance.put(`/cars/${carId}`, updatedData)
+            const response = await axiosInstance.put(`/api/cars/${carId}`, updatedData)
 
             // Update cars state
             setCars(prevCars =>
@@ -107,7 +107,7 @@ const MyCars = () => {
 
         if (isDeleting) {
             try {
-                await axiosInstance.delete(`/cars/${carId}`)
+                await axiosInstance.delete(`/api/cars/${carId}`)
 
                 // Remove car from state
                 const updatedCars = cars.filter(c => c._id !== carId)

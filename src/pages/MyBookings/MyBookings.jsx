@@ -40,7 +40,7 @@ const MyBookings = () => {
         const loadBookings = async () => {
             try {
                 setLoading(true)
-                const response = await axiosInstance.get(`/bookings?userEmail=${user.email}`)
+                const response = await axiosInstance.get(`/api/bookings?userEmail=${user.email}`)
                 setBookings(response.data)
             } catch (error) {
                 console.error('Error loading bookings:', error)
@@ -136,7 +136,7 @@ const MyBookings = () => {
     const confirmCancelBooking = async () => {
         setIsSubmitting(true)
         try {
-            await axiosInstance.patch(`/bookings/${selectedBooking._id}`, { status: 'canceled' })
+            await axiosInstance.patch(`/api/bookings/${selectedBooking._id}`, { status: 'canceled' })
 
             // Update local state
             setBookings(prevBookings =>
@@ -179,7 +179,7 @@ const MyBookings = () => {
             const newTotalPrice = duration * selectedBooking.dailyRate
 
             // Update booking
-            await axiosInstance.patch(`/bookings/${selectedBooking._id}`, {
+            await axiosInstance.patch(`/api/bookings/${selectedBooking._id}`, {
                 startDate: modifiedDates.startDate,
                 endDate: modifiedDates.endDate,
                 totalPrice: newTotalPrice

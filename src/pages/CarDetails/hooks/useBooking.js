@@ -45,7 +45,7 @@ const useBooking = () => {
                 userEmail: user?.email,
                 userName: user?.displayName,
             };
-            await axiosInstance.post("/bookings", bookingData);
+            await axiosInstance.post("/api/bookings", bookingData);
 
             toast.success("Car booked successfully!");
             setShowBookingModal(false);

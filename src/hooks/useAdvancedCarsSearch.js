@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
-import axios from "axios";
+import axiosInstance from "../api/axios";
 
 /**
  * Advanced car search hook with TanStack Query
@@ -40,10 +40,8 @@ export const useAdvancedCarsSearch = () => {
     const { data, isLoading, error, refetch, isFetching } = useQuery({
         queryKey: ["cars", queryParams],
         queryFn: async () => {
-            const response = await axios.get(
-                `${
-                    import.meta.env.VITE_API_URL || "http://localhost:3000"
-                }/api/cars/search?${queryString}`
+            const response = await axiosInstance.get(
+                `/api/cars/search?${queryString}`
             );
             return response.data;
         },

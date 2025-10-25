@@ -35,11 +35,11 @@ const DashboardStats = () => {
                 setLoading(true)
 
                 // Fetch user's cars
-                const carsResponse = await axiosInstance.get(`/cars/user/${user.email}`)
+                const carsResponse = await axiosInstance.get(`/api/cars/user/${user.email}`)
                 const userCars = carsResponse.data
 
                 // Fetch user's bookings
-                const bookingsResponse = await axiosInstance.get(`/bookings/user/${user.email}`)
+                const bookingsResponse = await axiosInstance.get(`/api/bookings/user/${user.email}`)
                 const userBookings = bookingsResponse.data
 
                 // Calculate stats

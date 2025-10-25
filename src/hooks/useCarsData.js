@@ -12,7 +12,7 @@ const useCarsData = () => {
         const loadCars = async () => {
             try {
                 setLoading(true);
-                const response = await axiosInstance.get("/cars/available");
+                const response = await axiosInstance.get("/api/cars/available");
                 setCars(response.data);
                 setFilteredCars(response.data);
             } catch (error) {
