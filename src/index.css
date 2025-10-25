@@ -107,3 +107,50 @@ a.active {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
 }
+
+/* React DatePicker Dark Mode Styles */
+.react-datepicker {
+  @apply bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg;
+}
+
+.react-datepicker__header {
+  @apply bg-gradient-to-r from-blue-600 to-purple-600 border-b-0 rounded-t-lg;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  @apply text-white font-semibold;
+}
+
+.react-datepicker__day {
+  @apply text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-gray-700 rounded-md;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.react-datepicker__day--keyboard-selected {
+  @apply bg-blue-500 text-white;
+}
+
+.react-datepicker__day--disabled {
+  @apply text-gray-400 dark:text-gray-600 cursor-not-allowed hover:bg-transparent;
+}
+
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range) {
+  @apply bg-blue-200 dark:bg-blue-900;
+}
+
+.react-datepicker__day--outside-month {
+  @apply text-gray-400 dark:text-gray-600;
+}
+
+.react-datepicker__navigation-icon::before {
+  @apply border-white;
+}
+
+.react-datepicker__triangle {
+  @apply hidden;
+}

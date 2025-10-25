@@ -5,8 +5,8 @@ import Loading from '../../components/Loading'
 import BackButton from './components/BackButton'
 import CarImageGallery from './components/CarImageGallery'
 import CarDetailsCard from './components/CarDetailsCard'
-import BookingCard from './components/BookingCard'
-import BookingModal from './components/BookingModal'
+import AvailabilityCalendar from './components/AvailabilityCalendar'
+import EnhancedBookingModal from './components/EnhancedBookingModal'
 import CarNotFound from './components/CarNotFound'
 
 // Hooks
@@ -17,10 +17,12 @@ import useCarActions from './hooks/useCarActions'
 // Utils
 import { getTimeAgo } from '../../utils/utils'
 import useDocumentTitle from '../../hooks/useDocumentTitle'
+import { useState } from 'react'
 
 const CarDetails = () => {
     const { id } = useParams()
     const navigate = useNavigate()
+    const [bookingQuote, setBookingQuote] = useState(null)
 
     // Custom hooks
     const { car, loading } = useCarDetails(id)
@@ -37,15 +39,15 @@ const CarDetails = () => {
     // useDocumentTitle
     useDocumentTitle(`Car Details - ${car ? car.carModel : 'Loading...'}`);
 
-    const handleBookingSubmit = (dates, totalPrice) => {
+    const handleBookingSubmit = (dates, quote) => {
+        setBookingQuote(quote)
         openBookingModal(dates)
-        // Store the data for the modal
-        window.carBookingData = { dates, totalPrice }
     }
 
     const handleBookingConfirm = () => {
-        const { totalPrice } = window.carBookingData || {}
-        handleBooking(car, totalPrice)
+        if (bookingQuote) {
+            handleBooking(car, bookingQuote.total)
+        }
     }
 
     if (loading) {
@@ -82,7 +84,7 @@ const CarDetails = () => {
 
                     {/* Right Column - Booking Card */}
                     <div className="lg:col-span-1 space-y-8">
-                        <BookingCard
+                        <AvailabilityCalendar
                             car={car}
                             onBookingSubmit={handleBookingSubmit}
                             isBooking={isBooking}
@@ -91,13 +93,13 @@ const CarDetails = () => {
                 </div>
             </div>
 
-            {/* Booking Confirmation Modal */}
-            <BookingModal
+            {/* Enhanced Booking Confirmation Modal */}
+            <EnhancedBookingModal
                 show={showBookingModal}
                 onClose={closeBookingModal}
                 car={car}
                 selectedDates={selectedDates}
-                totalPrice={window.carBookingData?.totalPrice || 0}
+                quote={bookingQuote}
                 onConfirm={handleBookingConfirm}
                 isBooking={isBooking}
             />
